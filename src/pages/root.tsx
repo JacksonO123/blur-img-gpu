@@ -123,10 +123,18 @@ const Root = () => {
       code: computeCode,
     });
 
-    image.onload = async () => {
+    const startBlur = () => {
       img = image;
-      console.log("loaded");
       blurImage(image, blurAmount().value);
+    };
+
+    const timeout = setTimeout(() => {
+      startBlur();
+    }, 500);
+
+    image.onload = async () => {
+      clearTimeout(timeout);
+      startBlur();
     };
   });
 
